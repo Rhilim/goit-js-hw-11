@@ -3,4 +3,5 @@ export const refs = {
   formRef: document.querySelector('#search-form'),
   formBtnRef: document.querySelector('#search-form button'),
   formInputRef: document.querySelector('#search-form input'),
+  loadMoreBtnRef: document.querySelector('.load-more'),
 };
