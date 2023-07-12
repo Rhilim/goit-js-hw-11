@@ -113,11 +113,11 @@ refs.formRef.addEventListener('submit', async e => {
 
 
 
-const handleLoadMoreBtnClick = () => { 
+const handleLoadMoreBtnClick = async () => { 
   pageCounter += 1;
   console.log(pageCounter);
 
-  getImages(inputValue)
+await getImages(inputValue)
     .then(res => {
       const { hits, totalHits } = res.data;
       pagesCount = Math.ceil(totalHits / perPage);
