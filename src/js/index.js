@@ -3,11 +3,6 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 
-// import OnlyScroll from 'only-scrollbar';
-
-// const scroll = new OnlyScroll(document.querySelector('body'));
-// scroll.scrollContainer();
-
 import { galleryMarkup } from './markup';
 import { refs } from './refs';
 
@@ -28,21 +23,26 @@ const lightBox = new SimpleLightbox('.gallery a', {
   captionDelay: 100,
 });
 
-refs.formInputRef.addEventListener('keydown', e => {
-  if (refs.formBtnRef.hasAttribute('disabled') && e.code === 'Space') {
-    e.target.value = '';
-    return Notiflix.Notify.failure(
-      `Sorry, but don't start with '${e.code}'-key and enter valid word! ;)`
-    );
-  }
-});
+// refs.formInputRef.addEventListener('keydown', e => {
+//   if (refs.formBtnRef.hasAttribute('disabled') && e.code === 'Space') {
+//     e.target.value = '';
+//     return Notiflix.Notify.failure(
+//       `Sorry, but don't start with '${e.code}'-key and enter valid word! ;)`
+//     );
+//   }
+// });
+refs.formBtnRef.disabled = true;
 
 refs.formInputRef.addEventListener('input', async e => {
   const inputEl = e.target.value.trim();
   if (inputEl.length === 0) {
-    refs.formBtnRef.setAttribute('disabled');
+    refs.formBtnRef.disabled = true;
+    refs.formBtnRef.style.cursor = 'not-allowed';
+    Notiflix.Notify.failure(
+      `Sorry, but don't start with empty space, please enter a valid word! ;)`
+    );
   } else if (inputEl.length > 0) {
-    refs.formBtnRef.removeAttribute('disabled');
+    refs.formBtnRef.disabled = false;
     refs.formBtnRef.style.cursor = 'pointer';
   }
   return;
