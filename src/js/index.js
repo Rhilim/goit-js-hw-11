@@ -23,14 +23,6 @@ const lightBox = new SimpleLightbox('.gallery a', {
   captionDelay: 100,
 });
 
-// refs.formInputRef.addEventListener('keydown', e => {
-//   if (refs.formBtnRef.hasAttribute('disabled') && e.code === 'Space') {
-//     e.target.value = '';
-//     return Notiflix.Notify.failure(
-//       `Sorry, but don't start with '${e.code}'-key and enter valid word! ;)`
-//     );
-//   }
-// });
 refs.formBtnRef.disabled = true;
 
 refs.formInputRef.addEventListener('input', async e => {
@@ -86,9 +78,9 @@ refs.formRef.addEventListener('submit', async e => {
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
         refs.galleryRef.innerHTML = galleryMarkup(hits);
         refs.loadMoreBtnRef.classlist.remove('is-hidden');
-        
+
         lightBox.refresh();
-        
+
         return Notiflix.Notify.failure(
           `We're sorry, but you've reached the end of search results.`,
           options
@@ -98,9 +90,8 @@ refs.formRef.addEventListener('submit', async e => {
       refs.galleryRef.innerHTML = galleryMarkup(hits);
       refs.loadMoreBtnRef.classList.remove('is-hidden');
       lightBox.refresh();
-      
-      return Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
 
+      return Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     })
     .catch(error => {
       console.log(error.code);
@@ -111,13 +102,11 @@ refs.formRef.addEventListener('submit', async e => {
     });
 });
 
-
-
-const handleLoadMoreBtnClick = async () => { 
+const handleLoadMoreBtnClick = async () => {
   pageCounter += 1;
   console.log(pageCounter);
 
-await getImages(inputValue)
+  await getImages(inputValue)
     .then(res => {
       const { hits, totalHits } = res.data;
       pagesCount = Math.ceil(totalHits / perPage);
@@ -131,6 +120,5 @@ await getImages(inputValue)
         'Oops, something went wrong! ' + `Error is ${error.message}`
       )
     );
-}
+};
 refs.loadMoreBtnRef.addEventListener('click', handleLoadMoreBtnClick);
-
